@@ -1,0 +1,12 @@
+node_modules/
+.env
+
+# Carpeta .vscode si usas Visual Studio Code
+.vscode
+
+/.pnp
+.pnp.js
+
+# Archivos de construcción
+/build
+/dist
