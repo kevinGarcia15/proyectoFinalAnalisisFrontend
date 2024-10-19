@@ -10,16 +10,15 @@ export const Dashboard = () => {
   const menuType = 'admin' 
 
   return (
-    <div className='dashboard-container'>
-      <div style={{ display: 'flex' }}>
-        <div style={{ width: '200px', padding: '16px 24px' }}></div>
-        <SidebarComponent menuType={menuType} />
-        <div style={{ flex: '1', padding: '16px 24px' }}>
-          <VerCompanies />
-        </div>
-      </div>
+    <div className="flex h-screen bg-gray-100">
+      {/* Sidebar */}
+      <SidebarComponent menuType={menuType} />
 
-      <div className='main-content'></div>
+      {/* Contenido principal */}
+      <div className="flex-1 p-8 bg-white overflow-y-auto">
+        <h1 className="text-3xl font-bold text-gray-800 mb-6">Dashboard</h1>
+        <VerCompanies />
+      </div>
     </div>
   )
 }

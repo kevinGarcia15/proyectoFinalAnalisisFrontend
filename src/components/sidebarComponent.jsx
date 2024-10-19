@@ -1,11 +1,8 @@
-import React, { useState } from 'react'
-import '../style/style.css' // Asegúrate de importar los estilos CSS del Sidebar
+import React from 'react'
 import Usuario from './Usuario'
 import { menuAdmin, menuSuperAdmin, menuUser } from '@/services/menu-service'
 import { Logout } from '../components/Logout'
 import { Link } from 'react-router-dom'
-
-
 
 const SidebarComponent = ({ menuType }) => {
   let menus = []
@@ -22,37 +19,45 @@ const SidebarComponent = ({ menuType }) => {
       menus = menuUser
       break
     default:
-      menus = [] 
+      menus = []
   }
 
   return (
-    <div className='sidebar'>
-      <div className='user-info'>
+    <div className="h-screen w-64 bg-gray-800 text-white flex flex-col">
+      {/* Información del usuario */}
+      <div className="p-6 border-b border-gray-700">
         <Usuario />
       </div>
 
-      <div className='menu'>
+      {/* Menús */}
+      <nav className="flex-1 p-6 overflow-y-auto">
         {menus.map((menu, index) => (
-          <div key={index} className='menu-item'>
-            {menu.name}
-            <ul>
+          <div key={index} className="mb-4">
+            <h3 className="text-sm font-semibold uppercase tracking-wide text-gray-400">
+              {menu.name}
+            </h3>
+            <ul className="mt-2 space-y-2">
               {menu.submenu.map((submenu, subIndex) => (
                 <li key={subIndex}>
-                  <Link to={submenu.path}>{submenu.name}</Link>
+                  <Link
+                    to={submenu.path}
+                    className="block py-2 px-4 rounded-md hover:bg-gray-700 hover:text-white transition duration-300"
+                  >
+                    {submenu.name}
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
         ))}
-      </div>
+      </nav>
 
-      <div>
-        {/* Otras partes del sidebar */}
-        <Logout/>
+      {/* Logout */}
+      <div className="p-6 border-t border-gray-700">
+        <Logout />
       </div>
     </div>
   )
 }
 
 export default SidebarComponent
-
