@@ -23,10 +23,8 @@ class AuthService {
                 data: loginData,
             });
 
-          
-
             // Corregido: Almacenar el token con comillas
-            sessionStorage.setItem('token', `"${response.data.token}"`);
+            sessionStorage.setItem('token', response.data.token)
             const userDataJSON = JSON.stringify(response.data.user);
             sessionStorage.setItem('data_user', userDataJSON);
 

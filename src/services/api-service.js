@@ -29,9 +29,17 @@ class ApiService {
 
     const options = {
       method,
-      headers: {
-        ...this.headers,
-        Authorization: this.#token,
+      headers: {}
+    }
+
+    if(url !== "/login/"){
+      options.headers = {
+          ...this.headers,
+          Authorization: this.#token,
+        }   
+      }else{
+        options.headers = {
+          ...this.headers,
       }
     }
 

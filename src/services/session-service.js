@@ -11,9 +11,9 @@ class SessionService
 
   get(clave) {
     const valorString = sessionStorage.getItem(clave);
-    const valorJSON = JSON.parse(valorString);
+    //const valorJSON = JSON.parse(valorString);
     // console.log('Valor recuperado de sessionStorage bajo la clave "' + clave + '"---- ' + valorJSON);
-    return valorJSON;
+    return valorString;
   }
 
   remove(clave) {

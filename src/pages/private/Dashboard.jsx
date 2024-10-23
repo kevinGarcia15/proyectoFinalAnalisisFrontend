@@ -17,7 +17,7 @@ export const Dashboard = () => {
       {/* Contenido principal */}
       <div className="flex-1 p-8 bg-white overflow-y-auto">
         <h1 className="text-3xl font-bold text-gray-800 mb-6">Dashboard</h1>
-        <VerCompanies />
+        
       </div>
     </div>
   )
