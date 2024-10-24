@@ -1,29 +1,28 @@
 import React, { useState, useEffect } from 'react'
-import { companyService } from '../../services/company-service'
+import { companyService } from '../../services/proyecto-service'
 import { Link } from 'react-router-dom'
 import SidebarComponent from '@/components/sidebarComponent'
 
-export const VerCompanies = () => {
-  const [companies, setCompanies] = useState([])
+export const VerProyectos = () => {
+  const [proyectos, setProyectos] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Llamada al método getCompanies del servicio companyService
-        const companiesData = await companyService.getCompanies()
+        const proyectosData = await companyService.getProyectos()
         // Si la respuesta es exitosa, actualiza el estado con las compañías
         if (
-          companiesData &&
-          companiesData.results &&
-          companiesData.results.length > 0
+          proyectosData &&
+          proyectosData.results &&
+          proyectosData.results.length > 0
         ) {
-          setCompanies(companiesData.results)
+          setProyectos(proyectosData.results)
           setLoading(false)
         }
       } catch (error) {
-        console.error('Error al obtener las compañías:', error)
+        console.error('Error al obtener los proyectos:', error)
         setError(error)
         setLoading(false)
       }
@@ -42,25 +41,25 @@ export const VerCompanies = () => {
   return (
     <div>
      
-      <h2>Lista de Compañías</h2>
+      <h2>Lista de Proyectos</h2>
       <table>
         <thead>
           <tr>
             <th>ID</th>
-            <th>Nombre</th>
-            <th>Teléfono</th>
+            <th>Fecha Requerimiento</th>
             <th>Descripción</th>
-            <th>Dirección</th>
+            <th>Fecha estimido de inicio</th>
+            <th>Planificado</th>
           </tr>
         </thead>
         <tbody>
-          {companies.map(company => (
-            <tr key={company.id}>
-              <td>{company.id}</td>
-              <td>{company.name}</td>
-              <td>{company.phone}</td>
-              <td>{company.description}</td>
-              <td>{company.address}</td>
+          {proyectos.map(proyecto => (
+            <tr key={proyecto.idProyecto}>
+              <td>{proyecto.idProyecto}</td>
+              <td>{proyecto.fechaRequerimiento}</td>
+              <td>{proyecto.descripcion}</td>
+              <td>{proyecto.fechaEstimadoInicio}</td>
+              <td>{proyecto.planificado}</td>
             </tr>
           ))}
         </tbody>

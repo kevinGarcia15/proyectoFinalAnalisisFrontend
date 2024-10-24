@@ -26,7 +26,7 @@ export const menuAdmin = [
         ]
     },
     {
-        name: 'company',
+        name: 'Proyectos',
         icon: '',
         
         submenu:[
