@@ -6,7 +6,8 @@ import { AuthRoute } from '../routes/AuthRoute';
 import {
   Profile,
   Dashboard,
-  CrearProyecto
+  CrearProyecto,
+  EditarProyecto
 } from '../pages/private'
 import { Login,Home, Uikit, Register, NotFound, RegisterCompany} from '../pages/public';
 
@@ -28,6 +29,7 @@ const AppRouter = () => {
 {/* ----------PRIVATE ROUTES-------- */}
       <Route path='/dashboard' element={<AuthRoute>< Dashboard/></AuthRoute>}/>
       <Route path='/proyecto/crearproyectos' element={<AuthRoute>< CrearProyecto/></AuthRoute>}/>
+      <Route path='/proyecto/editar/:id' element={<AuthRoute>< EditarProyecto/></AuthRoute>}/>
       <Route path='/profile' element={<AuthRoute><Profile /></AuthRoute>}/>
     </Routes>
     </>

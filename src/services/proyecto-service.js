@@ -88,36 +88,25 @@ class ProyectoService {
         }
     }
 
-// EJEMPLO DE USO: updateCompany----------------------
-//     const companyId = 1 // ID de la empresa que deseas actualizar
-//     companyService
-//   .updateCompany(
-//         companyId,
-//     'Telus',
-//     '12345687',
-//     'CallCenter',
-//     'xela',
-//     'pic',
-//     )
-//   .then(updateRes => {
-//         console.log('Respuesta al actualizar compañía:', updateRes)
-//   })
-//   .catch (updateErr => {
-//     console.error('Error al actualizar compañía:', updateErr)
-// })
-    async updateCompany(id, name, phone, description, address, picture) {
-        const companyData = {
-            name,
-            phone,
-            description,
-            address,
-            picture
-        };
+    async getProyectoById(id) {
+        try {
+            const response = await apiService.get({
+                url: `/proyecto/${id}/`,
 
+            });
+
+            return response.data;
+        } catch (error) {
+            console.error("Error al obtener la complejidad:", error);
+            throw error;
+        }
+    }
+
+    async updateProyecto(id, formData) {
         try {
             const response = await apiService.put({
-                url: `/company/${id}/`,
-                data: companyData,
+                url: `/proyecto/${id}/`,
+                data: formData,
             });
 
             return response;
@@ -127,25 +116,10 @@ class ProyectoService {
         }
     }
 
-
-
-
-
-    //  EJEMPLO DE USO:deleteCompany-----------
-//     const companyIdToDelete = 456; // ID de la empresa que deseas eliminar
-// companyService.deleteCompany(companyIdToDelete)
-// .then(deleteRes => {
-//         console.log('Respuesta al eliminar compañía:', deleteRes);
-// })
-// .catch (deleteErr => {
-//     console.error('Error al eliminar compañía:', deleteErr);
-// });
-
-
-    async deleteCompany(id) {
+    async deleteProyecto(id) {
         try {
             const response = await apiService.delete({
-                url: `/company/${id}/`,
+                url: `/proyecto/${id}/`,
             });
 
             return response;

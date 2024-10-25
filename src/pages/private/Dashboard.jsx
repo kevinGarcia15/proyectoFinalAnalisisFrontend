@@ -1,7 +1,7 @@
 // En tu componente Dashboard.jsx
 import SidebarComponent from '@/components/sidebarComponent';
 import React from 'react'
-import { VerProyectos } from './verProyectos';
+import { VerProyectos } from './proyecto/verProyectos';
 
 export const Dashboard = () => {
   

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { proyectoService } from '../../services/proyecto-service'
+import { proyectoService } from '../../../services/proyecto-service'
 import { Link, useNavigate } from 'react-router-dom'
 
 export const VerProyectos = () => {
@@ -38,10 +38,12 @@ export const VerProyectos = () => {
   const handleDelete = async idProyecto => {
     if (window.confirm('¿Estás seguro de que deseas eliminar este proyecto?')) {
       try {
-        await proyectoService.deleteProyecto(idProyecto)
-        setProyectos(prevProyectos =>
-          prevProyectos.filter(proyecto => proyecto.idProyecto !== idProyecto)
-        )
+        const respuesta = await proyectoService.deleteProyecto(idProyecto)
+        if(respuesta.status == 204){
+          setProyectos(prevProyectos =>
+            prevProyectos.filter(proyecto => proyecto.idProyecto !== idProyecto)
+          )
+        }
       } catch (error) {
         console.error('Error al eliminar el proyecto:', error)
         setError('Error al eliminar el proyecto')

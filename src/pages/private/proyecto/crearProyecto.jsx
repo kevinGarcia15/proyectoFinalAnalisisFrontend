@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { proyectoService } from '../../services/proyecto-service'
+import { proyectoService } from '../../../services/proyecto-service'
 import { useNavigate } from 'react-router-dom'
 import SidebarComponent from '@/components/sidebarComponent';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-
 
 export const CrearProyecto = () => {
   const [formData, setFormData] = useState({

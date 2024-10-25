@@ -2,5 +2,6 @@
 
 export { Profile } from '../../pages/private/Profile';
 export { Dashboard } from '../../pages/private/Dashboard';
-export { VerProyectos } from '../../pages/private/verProyectos';
-export { CrearProyecto } from '../../pages/private/crearProyecto';
+export { VerProyectos } from './proyecto/verProyectos';
+export { CrearProyecto } from './proyecto/crearProyecto';
+export { EditarProyecto } from './proyecto/editarProyecto';
