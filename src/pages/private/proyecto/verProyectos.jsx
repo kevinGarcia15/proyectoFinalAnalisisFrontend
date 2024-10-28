@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { proyectoService } from '../../../services/proyecto-service'
 import { Link, useNavigate } from 'react-router-dom'
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import BugReportIcon from '@mui/icons-material/BugReport';
 
 export const VerProyectos = () => {
   const [proyectos, setProyectos] = useState([])
@@ -35,6 +41,10 @@ export const VerProyectos = () => {
     navigate(`/proyecto/editar/${idProyecto}`)
   }
 
+  const handleRequerimiento = idProyecto=>{
+    navigate(`/proyecto/${idProyecto}/requerimiento`)
+  }
+  
   const handleDelete = async idProyecto => {
     if (window.confirm('¿Estás seguro de que deseas eliminar este proyecto?')) {
       try {
@@ -98,18 +108,51 @@ export const VerProyectos = () => {
               <td className="py-3 px-6 text-left">{proyecto.fechaEstimadoInicio}</td>
               <td className="py-3 px-6 text-left">{proyecto.planificado ? 'Sí' : 'No'}</td>
               <td className="py-3 px-6 text-center">
-                <button
-                  onClick={() => handleEdit(proyecto.idProyecto)}
-                  className="text-blue-500 hover:text-blue-700 mr-3"
-                >
-                  Editar
-                </button>
-                <button
-                  onClick={() => handleDelete(proyecto.idProyecto)}
-                  className="text-red-500 hover:text-red-700"
-                >
-                  Eliminar
-                </button>
+                <div className="flex items-center justify-center space-x-4">
+                  <Tooltip title="Editar">
+                    <IconButton>
+                      <button
+                        onClick={() => handleEdit(proyecto.idProyecto)}
+                        className="text-blue-500 hover:text-blue-700 mr-3"
+                        >
+                          <EditIcon/>
+                      </button>
+                    </IconButton>
+                  </Tooltip>
+
+                  <Tooltip title="Agregar requerimiento">
+                    <IconButton>
+                    <button
+                      onClick={() => handleRequerimiento(proyecto.idProyecto)}
+                      className="text-green-500 hover:text-blue-700 mr-3"
+                    >
+                      <AddIcon/>
+                    </button>
+                    </IconButton>
+                  </Tooltip>
+
+                  <Tooltip title="Reportar Bug">
+                    <IconButton>
+                      <button
+                        onClick={() => handleBug(proyecto.idProyecto)}
+                        className="text-black-500 hover:text-red-700"
+                      >
+                        <BugReportIcon/>
+                      </button>
+                    </IconButton>
+                  </Tooltip>
+
+                  <Tooltip title="Eliminar">
+                    <IconButton>
+                      <button
+                        onClick={() => handleDelete(proyecto.idProyecto)}
+                        className="text-red-500 hover:text-red-700"
+                      >
+                        <DeleteIcon/>
+                      </button>
+                    </IconButton>
+                  </Tooltip>
+                </div>
               </td>
             </tr>
           ))}

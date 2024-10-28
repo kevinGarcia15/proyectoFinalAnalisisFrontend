@@ -1,12 +1,12 @@
 
 import { apiService } from "./api-service";
 
-class ProyectoService {
-    async createProyecto(formData) {
+class RequerimientosService {
+    async createRequerimientos(formData) {
 
         try {
             const response = await apiService.post({
-                url: '/proyecto/',
+                url: '/requerimientos/',
                 data: formData,
             });
 
@@ -17,30 +17,30 @@ class ProyectoService {
         }
     }
 
-    async getProyectos() {
+    async getRequerimientos(idProyecto) {
         try {
             const response = await apiService.get({
-                url: '/proyecto/',
+                url: `/requerimientos/?idProyecto=${idProyecto}`,
 
             });
 
             return response.data;
         } catch (error) {
-            console.error("Error al obtener los proyectos:", error);
+            console.error("Error al obtener los requerimientoss:", error);
             throw error;
         }
     }
 
-    async getEstadosProyecto() {
+    async getEstadosRequerimientos() {
         try {
             const response = await apiService.get({
-                url: '/estadoproyecto/',
+                url: '/estadorequerimientos/',
 
             });
 
             return response.data;
         } catch (error) {
-            console.error("Error al obtener los el estado del proyecto:", error);
+            console.error("Error al obtener los el estado del requerimientos:", error);
             throw error;
         }
     }
@@ -88,10 +88,10 @@ class ProyectoService {
         }
     }
 
-    async getProyectoById(id) {
+    async getRequerimientosById(id) {
         try {
             const response = await apiService.get({
-                url: `/proyecto/${id}/`,
+                url: `/requerimientos/${id}/`,
 
             });
 
@@ -116,10 +116,10 @@ class ProyectoService {
         }
     }
 
-    async updateProyecto(id, formData) {
+    async updateRequerimientos(id, formData) {
         try {
             const response = await apiService.put({
-                url: `/proyecto/${id}/`,
+                url: `/requerimientos/${id}/`,
                 data: formData,
             });
 
@@ -130,10 +130,10 @@ class ProyectoService {
         }
     }
 
-    async deleteProyecto(id) {
+    async deleteRequerimientos(id) {
         try {
             const response = await apiService.delete({
-                url: `/proyecto/${id}/`,
+                url: `/requerimientos/${id}/`,
             });
 
             return response;
@@ -145,4 +145,4 @@ class ProyectoService {
 }
 
 
-export const proyectoService = Object.freeze(new ProyectoService())
+export const requerimientosService = Object.freeze(new RequerimientosService())

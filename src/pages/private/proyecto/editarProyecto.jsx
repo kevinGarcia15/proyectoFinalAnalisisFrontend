@@ -19,6 +19,7 @@ export const EditarProyecto = () => {
   })
 
   // Estados para cargar los catálogos
+  const [usuarios, setUsuarios] = useState([])
   const [estadosProyecto, setEstadosProyecto] = useState([])
   const [tiposRequerimiento, setTiposRequerimiento] = useState([])
   const [prioridad, setPrioridad] = useState([])
@@ -32,12 +33,14 @@ export const EditarProyecto = () => {
   useEffect(() => {
     const fetchCatalogos = async () => {
       try {
+        const usuarios = await proyectoService.getUsuarios()
         const estadosData = await proyectoService.getEstadosProyecto()
         const tiposRequerimientoData = await proyectoService.getTiposRequerimiento()
         const prioridadesData = await proyectoService.getPrioridad()
         const complejidadesData = await proyectoService.getComplejidad()
 
         setEstadosProyecto(estadosData.results)
+        setUsuarios(usuarios)
         setTiposRequerimiento(tiposRequerimientoData.results)
         setPrioridad(prioridadesData.results)
         setComplejidad(complejidadesData.results)
@@ -111,15 +114,21 @@ export const EditarProyecto = () => {
             </div>
 
             <div className="mb-4">
-              <label className="block text-gray-700">Usuario Encargado (ID)</label>
-              <input
-                type="number"
+            <label className="block text-gray-700">Usuario encargado</label>
+              <select
                 name="idUsuariEncargado"
                 value={formData.idUsuariEncargado}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border rounded"
                 required
-              />
+                className="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              >
+                <option value="">Selecciona un usuario</option>
+                {usuarios.map((user) => (
+                  <option key={user.id} value={user.id}>
+                    {user.username}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div className="mb-4">
