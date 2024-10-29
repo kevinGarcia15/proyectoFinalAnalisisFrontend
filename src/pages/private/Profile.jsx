@@ -5,7 +5,7 @@ export const Profile = () => {
   return (
     <>
       <h1>Módulo PROFILE</h1>
-      <Link to='/dashboard'>Volver al Dashboard</Link>
+      <Link to='/proyecto'>Volver al Proyectos</Link>
     </>
   )
 }

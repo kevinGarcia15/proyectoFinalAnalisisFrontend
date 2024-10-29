@@ -3,10 +3,8 @@ import { requerimientosService } from '../../../services/requerimiento-service'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import AddIcon from '@mui/icons-material/Add';
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
-import BugReportIcon from '@mui/icons-material/BugReport';
 import SidebarComponent from '@/components/sidebarComponent';
 
 export const VerRequerimientos = () => {
@@ -74,16 +72,17 @@ export const VerRequerimientos = () => {
     return <div>Error: {error.message}</div>
   }
 
-  const menuType = 'admin' 
+  const menuType = 'admin'
+  const linkTo = `crear`
 
   return (
     <div className="flex h-screen bg-gray-100">
       <SidebarComponent menuType={menuType} />
       <div className="flex-1 p-8 bg-white overflow-y-auto">
         <div className="container mx-auto p-6">
-          <h2 className="text-2xl font-semibold mb-6">Lista de Requerimientos</h2>
+          <h2 className="text-2xl font-semibold mb-6">{currentProjects[0].proyecto.nombreProyecto}</h2>
           <Link
-            to="/requerimiento/crearrequerimientos"
+            to={linkTo}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block mb-3"
           >
             Nuevo requerimiento
@@ -108,7 +107,7 @@ export const VerRequerimientos = () => {
                   <td className="py-3 px-6 text-left">{requerimiento.requerimiento}</td>
                   <td className="py-3 px-6 text-left">{requerimiento.orden}</td>
                   <td className="py-3 px-6 text-left">{requerimiento.fechaEstimadoEntrega}</td>
-                  <td className="py-3 px-6 text-left">{requerimiento.idUsuarioEncargado}</td>
+                  <td className="py-3 px-6 text-left">{requerimiento.usuarioEncargado.username}</td>
                   <td className="py-3 px-6 text-left">{requerimiento.estadoRequerimiento.estadoRequerimiento}</td>
                   <td className="py-3 px-6 text-center">
                     <div className="flex items-center justify-center space-x-4">

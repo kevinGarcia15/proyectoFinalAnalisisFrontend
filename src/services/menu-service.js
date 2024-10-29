@@ -4,8 +4,8 @@ export const menuSuperAdmin = [
         icon: '',
         submenu:[
             {
-                name: 'Dashboard',
-                path: '/dashboard',
+                name: 'Proyecto',
+                path: '/proyecto',
                 icon: '',
             }
         ]
@@ -19,8 +19,8 @@ export const menuAdmin = [
         icon: '',
         submenu:[
             {
-                name: 'Dashboard',
-                path: '/dashboard',
+                name: 'Proyecto',
+                path: '/proyecto',
                 icon: '',
             }
         ]
@@ -44,7 +44,7 @@ export const menuAdmin = [
 
 export const menuUser = [
     {
-        name: 'dashboard',
+        name: 'proyecto',
         icon: '',
         submenu:[
             {

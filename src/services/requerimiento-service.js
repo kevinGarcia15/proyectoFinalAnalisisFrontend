@@ -2,7 +2,7 @@
 import { apiService } from "./api-service";
 
 class RequerimientosService {
-    async createRequerimientos(formData) {
+    async crearRequerimiento(formData) {
 
         try {
             const response = await apiService.post({
@@ -31,73 +31,16 @@ class RequerimientosService {
         }
     }
 
-    async getEstadosRequerimientos() {
+    async getEstadosRequerimiento() {
         try {
             const response = await apiService.get({
-                url: '/estadorequerimientos/',
+                url: '/estadorequerimiento/',
 
             });
 
             return response.data;
         } catch (error) {
             console.error("Error al obtener los el estado del requerimientos:", error);
-            throw error;
-        }
-    }
-
-    async getTiposRequerimiento() {
-        try {
-            const response = await apiService.get({
-                url: '/tiporequerimiento/',
-
-            });
-
-            return response.data;
-        } catch (error) {
-            console.error("Error al obtener los tipos de requerimientos:", error);
-            throw error;
-        }
-    }
-
-    async getPrioridad() {
-        try {
-            const response = await apiService.get({
-                url: '/prioridad/',
-
-            });
-
-            return response.data;
-        } catch (error) {
-            console.error("Error al obtener las prioridades:", error);
-            throw error;
-        }
-    }
-
-
-    async getComplejidad() {
-        try {
-            const response = await apiService.get({
-                url: '/complejidad/',
-
-            });
-
-            return response.data;
-        } catch (error) {
-            console.error("Error al obtener la complejidad:", error);
-            throw error;
-        }
-    }
-
-    async getRequerimientosById(id) {
-        try {
-            const response = await apiService.get({
-                url: `/requerimientos/${id}/`,
-
-            });
-
-            return response.data;
-        } catch (error) {
-            console.error("Error al obtener la complejidad:", error);
             throw error;
         }
     }

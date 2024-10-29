@@ -3,7 +3,7 @@ import SidebarComponent from '@/components/sidebarComponent';
 import React from 'react'
 import { VerProyectos } from './proyecto/verProyectos';
 
-export const Dashboard = () => {
+export const Proyecto = () => {
   
   const menuType = 'admin' 
 

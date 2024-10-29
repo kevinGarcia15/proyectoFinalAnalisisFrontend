@@ -14,7 +14,7 @@ const simulateAuthentication = (setUserInfo, navigate) => {
     console.log(`Usuario: ${username}`);
     console.log(`Password: ${password}`);
 
-    navigate('/dashboard') // Redirige a la ruta privada
+    navigate('/proyecto') // Redirige a la ruta privada
   } else {
     console.log('Credenciales no válidas.')
   }

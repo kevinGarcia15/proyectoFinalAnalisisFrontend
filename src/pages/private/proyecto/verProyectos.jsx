@@ -110,46 +110,26 @@ export const VerProyectos = () => {
               <td className="py-3 px-6 text-center">
                 <div className="flex items-center justify-center space-x-4">
                   <Tooltip title="Editar">
-                    <IconButton>
-                      <button
-                        onClick={() => handleEdit(proyecto.idProyecto)}
-                        className="text-blue-500 hover:text-blue-700 mr-3"
-                        >
-                          <EditIcon/>
-                      </button>
+                    <IconButton onClick={() => handleEdit(proyecto.idProyecto)}>
+                      <EditIcon className="text-blue-500 hover:text-blue-700 mr-3"/>
                     </IconButton>
                   </Tooltip>
 
                   <Tooltip title="Agregar requerimiento">
-                    <IconButton>
-                    <button
-                      onClick={() => handleRequerimiento(proyecto.idProyecto)}
-                      className="text-green-500 hover:text-blue-700 mr-3"
-                    >
-                      <AddIcon/>
-                    </button>
+                    <IconButton onClick={() => handleRequerimiento(proyecto.idProyecto)}>
+                      <AddIcon className="text-green-500 hover:text-blue-700 mr-3"/>
                     </IconButton>
                   </Tooltip>
 
                   <Tooltip title="Reportar Bug">
-                    <IconButton>
-                      <button
-                        onClick={() => handleBug(proyecto.idProyecto)}
-                        className="text-black-500 hover:text-red-700"
-                      >
-                        <BugReportIcon/>
-                      </button>
+                    <IconButton onClick={() => handleBug(proyecto.idProyecto)}>
+                        <BugReportIcon className="text-black-500 hover:text-red-700"/>
                     </IconButton>
                   </Tooltip>
 
                   <Tooltip title="Eliminar">
-                    <IconButton>
-                      <button
-                        onClick={() => handleDelete(proyecto.idProyecto)}
-                        className="text-red-500 hover:text-red-700"
-                      >
-                        <DeleteIcon/>
-                      </button>
+                    <IconButton onClick={() => handleDelete(proyecto.idProyecto)}>
+                        <DeleteIcon className="text-red-500 hover:text-red-700"/>
                     </IconButton>
                   </Tooltip>
                 </div>

@@ -82,7 +82,7 @@ export const EditarProyecto = () => {
       await proyectoService.updateProyecto(id, formData) // Actualizar el proyecto
       setLoading(false)
       alert('¡El proyecto se actualizó exitosamente!')
-      navigate('/dashboard')  // Redirige a la lista de proyectos después de actualizar
+      navigate('/proyecto')  // Redirige a la lista de proyectos después de actualizar
     } catch (error) {
       console.error('Error al actualizar el proyecto:', error)
       setError('Error al actualizar el proyecto. Inténtalo de nuevo.')

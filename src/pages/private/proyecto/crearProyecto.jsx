@@ -68,7 +68,7 @@ export const CrearProyecto = () => {
       await proyectoService.createProyecto(formData)
       setLoading(false)
       alert('¡El proyecto se registró exitosamente!')
-      navigate('/dashboard')  // Redirige a la lista de proyectos después de crear
+      navigate('/proyecto')  // Redirige a la lista de proyectos después de crear
     } catch (error) {
       console.error('Error al crear el proyecto:', error)
       setError('Error al crear el proyecto. Inténtalo de nuevo.')

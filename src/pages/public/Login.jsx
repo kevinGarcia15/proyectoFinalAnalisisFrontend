@@ -27,7 +27,7 @@ export const Login = () => {
       // Llama al método de inicio de sesión del servicio authService
       await authService.login(formData.email, formData.password)
       // Si el inicio de sesión es exitoso, redirige al usuario al dashboard
-      navigate('/dashboard')
+      navigate('/proyecto')
     } catch (error) {
       // Si hay un error en el inicio de sesión, muestra una alerta al usuario
       setError('Credenciales inválidas. Por favor, inténtalo de nuevo.')
