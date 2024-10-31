@@ -1,20 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import { requerimientosService } from '../../../services/requerimiento-service'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import EditIcon from '@mui/icons-material/Edit';
+import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineSharp';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AutorenewSharpIcon from '@mui/icons-material/AutorenewSharp';
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import SidebarComponent from '@/components/sidebarComponent';
 
 export const VerRequerimientos = () => {
+  const [formData, setFormData] = useState({
+    idEstadoRequerimiento: '',
+  })
+
   const { id } = useParams() // Obtener el ID del proyecto desde la URL
   const [requerimientos, setRequerimientos] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [currentPage, setCurrentPage] = useState(1)
   const [projectsPerPage] = useState(5) // Requerimientos por página
-  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,17 +41,40 @@ export const VerRequerimientos = () => {
     fetchData()
   }, [])
 
-  const handleEdit = idProyecto => {
-    navigate(`/requerimiento/editar/${idProyecto}`)
-  }
+  const handleEdit = async (idRequerimiento, nuevoEstado) => {
+    try {
+      formData.idEstadoRequerimiento = nuevoEstado;
+      const respuesta = await requerimientosService.cambioEstado(idRequerimiento, formData);
   
-  const handleDelete = async idProyecto => {
+      if (respuesta.status === 200) {
+        setRequerimientos(prevRequerimientos =>
+          prevRequerimientos.map(requerimiento => 
+            requerimiento.idRequerimiento === idRequerimiento 
+              ? { 
+                  ...requerimiento, 
+                  estadoRequerimiento: { 
+                    ...requerimiento.estadoRequerimiento, 
+                    estadoRequerimiento: respuesta.data.estadoRequerimiento.estadoRequerimiento 
+                  } 
+                }
+              : requerimiento
+          )
+        );
+      }
+    } catch (error) {
+      console.error('Error al cambiar el estado del requerimiento:', error);
+      setError('Error al cambiar el estado del requerimiento');
+    }
+  };
+  
+  
+  const handleDelete = async idRequerimiento => {
     if (window.confirm('¿Estás seguro de que deseas eliminar este requerimiento?')) {
       try {
-        const respuesta = await requerimientoService.deleteProyecto(idProyecto)
+        const respuesta = await requerimientosService.deleteRequerimiento(idRequerimiento)
         if(respuesta.status == 204){
           setRequerimientos(prevRequerimientos =>
-            prevRequerimientos.filter(requerimiento => requerimiento.idProyecto !== idProyecto)
+            prevRequerimientos.filter(requerimiento => requerimiento.idRequerimiento !== idRequerimiento)
           )
         }
       } catch (error) {
@@ -108,20 +135,42 @@ export const VerRequerimientos = () => {
                   <td className="py-3 px-6 text-left">{requerimiento.orden}</td>
                   <td className="py-3 px-6 text-left">{requerimiento.fechaEstimadoEntrega}</td>
                   <td className="py-3 px-6 text-left">{requerimiento.usuarioEncargado.username}</td>
-                  <td className="py-3 px-6 text-left">{requerimiento.estadoRequerimiento.estadoRequerimiento}</td>
-                  <td className="py-3 px-6 text-center">
+                  <td className="py-3 px-6 text-left">
+                    <span
+                      className={`px-3 py-1 rounded-full text-white text-sm font-semibold ${
+                        requerimiento.estadoRequerimiento.estadoRequerimiento === 'Planificado' 
+                          ? 'bg-gray-400'
+                          : requerimiento.estadoRequerimiento.estadoRequerimiento === 'En progreso'
+                          ? 'bg-blue-500'
+                          : requerimiento.estadoRequerimiento.estadoRequerimiento === 'Finalizado'
+                          ? 'bg-green-500'
+                          : 'bg-gray-200'
+                      }`}
+                    >
+                      {requerimiento.estadoRequerimiento.estadoRequerimiento}
+                    </span>
+                </td>                  
+                <td className="py-3 px-6 text-center">
                     <div className="flex items-center justify-center space-x-4">
-                      <Tooltip title="Editar">
+                      <Tooltip title="Finalizado">
                         <IconButton 
-                            onClick={() => handleEdit(requerimiento.idProyecto)}
+                            onClick={() => handleEdit(requerimiento.idRequerimiento, 3)}
                             >
-                          <EditIcon className="text-yellow-500"/>
+                          <CheckCircleOutlineSharpIcon className="text-green-500"/>
+                        </IconButton>
+                      </Tooltip>
+
+                      <Tooltip title="En progreso">
+                        <IconButton 
+                            onClick={() => handleEdit(requerimiento.idRequerimiento, 2)}
+                            >
+                          <AutorenewSharpIcon className="text-blue-500"/>
                         </IconButton>
                       </Tooltip>
 
                       <Tooltip title="Eliminar">
                         <IconButton 
-                          onClick={() => handleDelete(requerimiento.idProyecto)}
+                          onClick={() => handleDelete(requerimiento.idRequerimiento)}
                         >
                           <DeleteIcon className="text-red-500"/>
                         </IconButton>

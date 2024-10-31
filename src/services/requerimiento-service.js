@@ -59,11 +59,11 @@ class RequerimientosService {
         }
     }
 
-    async updateRequerimientos(id, formData) {
+    async cambioEstado(id, idEstado) {
         try {
-            const response = await apiService.put({
+            const response = await apiService.patch({
                 url: `/requerimientos/${id}/`,
-                data: formData,
+                data: idEstado,
             });
 
             return response;
@@ -73,7 +73,7 @@ class RequerimientosService {
         }
     }
 
-    async deleteRequerimientos(id) {
+    async deleteRequerimiento(id) {
         try {
             const response = await apiService.delete({
                 url: `/requerimientos/${id}/`,
