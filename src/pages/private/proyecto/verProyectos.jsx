@@ -6,7 +6,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
-import BugReportIcon from '@mui/icons-material/BugReport';
 
 export const VerProyectos = () => {
   const [proyectos, setProyectos] = useState([])
@@ -118,12 +117,6 @@ export const VerProyectos = () => {
                   <Tooltip title="Agregar requerimiento">
                     <IconButton onClick={() => handleRequerimiento(proyecto.idProyecto)}>
                       <AddIcon className="text-green-500 hover:text-blue-700 mr-3"/>
-                    </IconButton>
-                  </Tooltip>
-
-                  <Tooltip title="Reportar Bug">
-                    <IconButton onClick={() => handleBug(proyecto.idProyecto)}>
-                        <BugReportIcon className="text-black-500 hover:text-red-700"/>
                     </IconButton>
                   </Tooltip>
 

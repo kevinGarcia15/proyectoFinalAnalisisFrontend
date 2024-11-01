@@ -7,3 +7,5 @@ export { CrearProyecto } from './proyecto/crearProyecto';
 export { EditarProyecto } from './proyecto/editarProyecto';
 export { VerRequerimientos } from './requerimiento/verRequerimiento';
 export { CrearRequerimiento } from './requerimiento/crearRequerimiento';
+export { VerPrueba } from './prueba/verPrueba';
+export { CrearPrueba } from './prueba/crearPrueba';

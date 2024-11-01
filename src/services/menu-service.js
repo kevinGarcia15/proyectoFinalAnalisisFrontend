@@ -15,26 +15,32 @@ export const menuSuperAdmin = [
 
 export const menuAdmin = [
     {
-        name: 'inicio',
+        name: 'Proyectos',
         icon: '',
         submenu:[
             {
                 name: 'Proyecto',
                 path: '/proyecto',
                 icon: '',
+            },
+            {
+                name: 'Crear proyecto',
+                path: '/proyecto/crearproyectos',
+                icon: '',
             }
+
         ]
     },
     {
-        name: 'Proyectos',
+        name: 'Pruebas',
         icon: '',
         
         submenu:[
             {
               
 
-                name: 'ver companias',
-                path: '/ver-companies',
+                name: 'Listar pruebas',
+                path: '/pruebas',
                 icon: '',
                 
             }
