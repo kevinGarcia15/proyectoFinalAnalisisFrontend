@@ -50,7 +50,6 @@ class ApiService {
     return new Promise((resolve, reject) => {
       fetch(`${this.#root}${url}`, options)
         .then(response => {
-          console.log(response)
            // Verifica si la respuesta tiene contenido antes de convertirla a JSON
            const values = response.status !== 204 ? response.json().then(data => ({
             status: response.status,

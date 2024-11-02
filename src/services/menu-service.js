@@ -43,6 +43,14 @@ export const menuAdmin = [
                 path: '/pruebas',
                 icon: '',
                 
+            },
+            {
+              
+
+                name: 'Crear pruebas',
+                path: '/pruebas/crear',
+                icon: '',
+                
             }
         ]
     }

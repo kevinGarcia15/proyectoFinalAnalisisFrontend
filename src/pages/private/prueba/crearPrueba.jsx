@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { pruebaService } from '../../../services/prueba-service'
 import { useNavigate } from 'react-router-dom'
 import SidebarComponent from '@/components/sidebarComponent';
+import AddIcon from '@mui/icons-material/Add';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export const CrearPrueba = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +16,8 @@ export const CrearPrueba = () => {
     idProyecto: '',
     idEstadoPrueba: '',
   })
+
+  const [criterios, setCriterios] = useState([{ descripcion: '' }])
 
   // Estados para cargar los catálogos
   const [proyectos, setProyectos] = useState([])
@@ -46,15 +52,41 @@ export const CrearPrueba = () => {
     })
   }
 
+  const handleCriterioChange = (index, e) => {
+    const { value } = e.target
+    const newCriterios = [...criterios]
+    newCriterios[index].descripcion = value
+    setCriterios(newCriterios)
+  }
+
+  const addCriterio = () => {
+    setCriterios([...criterios, { descripcion: '' }])
+  }
+
+  const removeCriterio = (index) => {
+    if(criterios.length > 1){
+      const newCriterios = criterios.filter((_, i) => i !== index)
+      setCriterios(newCriterios)
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
     setError(null)
     try {
-      await pruebaService.createPrueba(formData)
+      const pruebaResponse = await pruebaService.createPrueba(formData)
+      const idPrueba = pruebaResponse.idPrueba
+
+      await Promise.all(
+        criterios.map(criterio =>
+          pruebaService.createCriterioAceptacion({ ...criterio, idPrueba })
+        )
+      )
+
       setLoading(false)
-      alert('¡La prueba se registró exitosamente!')
-      navigate('/pruebas')  // Redirige a la lista de pruebas después de crear
+      alert('¡La prueba y los criterios de aceptación se registraron exitosamente!')
+      navigate('/pruebas')
     } catch (error) {
       console.error('Error al crear la prueba:', error)
       setError('Error al crear la prueba. Inténtalo de nuevo.')
@@ -143,6 +175,34 @@ export const CrearPrueba = () => {
               </select>
             </div>
 
+            {/* Sección de criterios de aceptación */}
+            <h3 className="text-xl font-semibold mt-6 mb-4">Criterios de Aceptación</h3>
+            {criterios.map((criterio, index) => (
+              <div key={index} className="mb-4 flex items-center">
+                <input
+                  type="text"
+                  placeholder="Descripción del criterio"
+                  value={criterio.descripcion}
+                  onChange={(e) => handleCriterioChange(index, e)}
+                  className="w-full px-3 py-2 border rounded mr-4"
+                  required
+                />
+            
+                <Tooltip title="Agregar criterio de aceptacion">
+                  <IconButton onClick={addCriterio}>
+                    <AddIcon className="text-green-500 hover:text-blue-700 mr-3"/>
+                </IconButton>
+                                                
+                </Tooltip>
+                  <Tooltip title="Eliminar">
+                    <IconButton onClick={() => removeCriterio(index)}>
+                        <DeleteIcon className="text-red-500 hover:text-red-700"/>
+                    </IconButton>
+                </Tooltip>
+          
+              </div>
+            ))}
+
             <button
               type="submit"
               disabled={loading}
@@ -150,6 +210,7 @@ export const CrearPrueba = () => {
             >
               {loading ? 'Creando...' : 'Crear Prueba'}
             </button>
+
           </form>
         </div>
       </div>

@@ -10,6 +10,21 @@ class PruebaService {
                 data: formData,
             });
 
+            return response.data;
+        } catch (error) {
+            console.error("Error al crear la empresa:", error);
+            throw error; // Re-throw the error for further handling (optional)
+        }
+    }
+
+    async createCriterioAceptacion(formData) {
+
+        try {
+            const response = await apiService.post({
+                url: '/criterioaceptacion/',
+                data: formData,
+            });
+
             return response;
         } catch (error) {
             console.error("Error al crear la empresa:", error);
