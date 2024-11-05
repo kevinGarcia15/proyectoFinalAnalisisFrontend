@@ -1,12 +1,12 @@
 
 import { apiService } from "./api-service";
 
-class PruebaService {
-    async createPrueba(formData) {
+class BugService {
+    async createBug(formData) {
 
         try {
             const response = await apiService.post({
-                url: '/prueba/',
+                url: '/bugs/',
                 data: formData,
             });
 
@@ -17,68 +17,10 @@ class PruebaService {
         }
     }
 
-    async createCriterioAceptacion(formData) {
-
-        try {
-            const response = await apiService.post({
-                url: '/criterioaceptacion/',
-                data: formData,
-            });
-
-            return response;
-        } catch (error) {
-            console.error("Error al crear la empresa:", error);
-            throw error; // Re-throw the error for further handling (optional)
-        }
-    }
-
-    async getPruebas() {
+    async getUsuarios() {
         try {
             const response = await apiService.get({
-                url: '/prueba/',
-
-            });
-
-            return response.data;
-        } catch (error) {
-            console.error("Error al obtener los pruebas:", error);
-            throw error;
-        }
-    }
-
-    async getProyectos() {
-        try {
-            const response = await apiService.get({
-                url: '/proyecto/',
-
-            });
-
-            return response.data;
-        } catch (error) {
-            console.error("Error al obtener los pruebas:", error);
-            throw error;
-        }
-    }
-    
-
-    async getEstadosPrueba() {
-        try {
-            const response = await apiService.get({
-                url: '/estadoprueba/',
-
-            });
-
-            return response.data;
-        } catch (error) {
-            console.error("Error al obtener los el estado del prueba:", error);
-            throw error;
-        }
-    }
-
-    async getPruebaById(id) {
-        try {
-            const response = await apiService.get({
-                url: `/prueba/${id}/`,
+                url: '/users/',
 
             });
 
@@ -89,10 +31,53 @@ class PruebaService {
         }
     }
 
-    async getCriterioAceptacion(id) {
+    async getBugs() {
         try {
             const response = await apiService.get({
-                url: `/criterioaceptacion/?idprueba=${id}`,
+                url: '/bug/',
+
+            });
+
+            return response.data;
+        } catch (error) {
+            console.error("Error al obtener los bugs:", error);
+            throw error;
+        }
+    }
+    
+
+    async getEstadosBug() {
+        try {
+            const response = await apiService.get({
+                url: '/estadosbug/',
+
+            });
+
+            return response.data;
+        } catch (error) {
+            console.error("Error al obtener los el estado del bug:", error);
+            throw error;
+        }
+    }
+
+    async getClasificaciones() {
+        try {
+            const response = await apiService.get({
+                url: '/clasificaciones/',
+
+            });
+
+            return response.data;
+        } catch (error) {
+            console.error("Error al obtener los el estado del bug:", error);
+            throw error;
+        }
+    }
+    
+    async getBugById(id) {
+        try {
+            const response = await apiService.get({
+                url: `/bug/${id}/`,
 
             });
 
@@ -103,25 +88,10 @@ class PruebaService {
         }
     }
 
-    async aceptarCriterio(id, data) {
-        try {
-            const response = await apiService.patch({
-                url: `/criterioaceptacion/${id}/`,
-                data: data,
-            });
-
-            return response;
-        } catch (error) {
-            console.error("Error al actualizar el criterio:", error);
-            throw error;
-        }
-    }
-    
-
-    async updatePrueba(id, formData) {
+    async updateBug(id, formData) {
         try {
             const response = await apiService.put({
-                url: `/prueba/${id}/`,
+                url: `/bug/${id}/`,
                 data: formData,
             });
 
@@ -132,10 +102,10 @@ class PruebaService {
         }
     }
 
-    async deletePrueba(id) {
+    async deleteBug(id) {
         try {
             const response = await apiService.delete({
-                url: `/prueba/${id}/`,
+                url: `/bug/${id}/`,
             });
 
             return response;
@@ -147,4 +117,4 @@ class PruebaService {
 }
 
 
-export const pruebaService = Object.freeze(new PruebaService())
+export const bugService = Object.freeze(new BugService())

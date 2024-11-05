@@ -7,6 +7,11 @@ export const VerPrueba = () => {
   const [prueba, setPrueba] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [criterioAceptacion, setCriterioAceptacion] = useState([])
+  
+  const [formData, setFormData] = useState({
+    aceptado: false,
+  })
 
   const { id } = useParams() // Get prueba ID from URL
   const navigate = useNavigate()
@@ -15,7 +20,9 @@ export const VerPrueba = () => {
     const fetchData = async () => {
       try {
         const fetchedPrueba = await pruebaService.getPruebaById(id)
+        const fetchedCriterioAceptacion = await pruebaService.getCriterioAceptacion(id)
         setPrueba(fetchedPrueba)
+        setCriterioAceptacion(fetchedCriterioAceptacion.results)
       } catch (error) {
         console.error('Error obtaining prueba details:', error)
         setError(error)
@@ -26,6 +33,25 @@ export const VerPrueba = () => {
     fetchData()
   }, [id, pruebaService])
 
+  const handleAceptar = async (idCriterioAceptacion) => {
+    try {
+      setFormData({ ...formData, aceptado: !formData.aceptado });
+      const respuesta = await pruebaService.aceptarCriterio(idCriterioAceptacion, formData);
+  
+      if (respuesta.status === 200) {
+        setCriterioAceptacion(prevCriterio =>
+          prevCriterio.map((criterio) =>
+            criterio.idCriterioAceptacion === idCriterioAceptacion ? { ...criterio, aceptado: respuesta.data.aceptado } : criterio
+          )
+        );
+      } else {
+        setError('Error al cambiar el estado del requerimiento');
+      }
+    } catch (error) {
+      setError('Error al cambiar el estado del requerimiento');
+    }
+  };
+  
   const handleBack = () => navigate('/pruebas') // Go back to pruebas list
 
   if (loading) {
@@ -82,18 +108,50 @@ export const VerPrueba = () => {
                     </div>
                 </div>
 
-                {/* Acceptance Criteria (replace with your actual criteria structure) */}
-                <h2 className="text-2xl font-semibold mt-6 mb-4">Criterios de Aceptación</h2>
-                {prueba.criteriosAceptacion?.map((criterio, index) => (
-                    <div key={index} className="mb-2">
-                    <p className="text-lg font-medium">{criterio.descripcion}</p>
-                    </div>
-                ))}
-                {!prueba.criteriosAceptacion?.length && (
-                    <p className="text-gray-600">No se han definido criterios de aceptación para esta prueba.</p>
-                )}
+                <div className="mt-6 overflow-x-auto">
+                  <table className="min-w-full divide-y divide-gray-200">
+                    <thead>
+                      <tr>
+                        <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">   
 
-                <button className="mt-6 px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded" onClick={handleBack}>
+                          Descripción
+                        </th>
+                        <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Aceptado
+                        </th>
+                        <th className="px-6 py-3 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Fecha de Registro
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                      {criterioAceptacion?.map((criterio) => (
+                        <tr key={criterio.idCriterioAceptacion}>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="flex items-center">
+                              <input
+                                id="checkbox-{index}"
+                                type="checkbox"
+                                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                                checked={criterio.aceptado}
+                                onChange={() => handleAceptar(criterio.idCriterioAceptacion, criterio.aceptado)}
+                              />
+                              <label htmlFor={`checkbox-${criterio.idCriterioAceptacion}`} className="ml-3 text-sm font-medium text-gray-900">
+                                {criterio.descripcion}
+                              </label>
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                            {criterio.aceptado ? 'Sí' : 'No'}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium text-gray-900">
+                            {new Date(criterio.fechaRegistro).toLocaleDateString()}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>                <button className="mt-6 px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded" onClick={handleBack}>
                     Volver a la lista de pruebas
                 </button>
                 </div>

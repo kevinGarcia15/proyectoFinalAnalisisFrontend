@@ -10,3 +10,4 @@ export { CrearRequerimiento } from './requerimiento/crearRequerimiento';
 export { ListarPrueba } from './prueba/listarPrueba';
 export { CrearPrueba } from './prueba/crearPrueba';
 export { VerPrueba } from './prueba/verPrueba';
+export { CrearBug } from './bug/crearBug';

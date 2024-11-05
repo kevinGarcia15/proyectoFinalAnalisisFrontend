@@ -40,6 +40,10 @@ export const ListarPrueba = () => {
   const handlePrueba = idPrueba=>{
     navigate(`/pruebas/ver/${idPrueba}`)
   }
+
+  const handleBug = idPrueba=>{
+    navigate(`/pruebas/${idPrueba}/bugs/crear`)
+  }
   
   const handleDelete = async idPrueba => {
     if (window.confirm('¿Estás seguro de que deseas eliminar este prueba?')) {

@@ -19,6 +19,8 @@ export const VerRequerimientos = () => {
   const [error, setError] = useState(null)
   const [currentPage, setCurrentPage] = useState(1)
   const [projectsPerPage] = useState(5) // Requerimientos por página
+  const menuType = 'admin'
+  const linkTo = `crear`
 
   useEffect(() => {
     const fetchData = async () => {
@@ -91,16 +93,31 @@ export const VerRequerimientos = () => {
 
   const paginate = pageNumber => setCurrentPage(pageNumber)
 
-  if (loading) {
-    return <div>Cargando...</div>
+  if (loading || !requerimientos.length) {
+    return (
+      <div className="flex h-screen bg-gray-100">
+        <SidebarComponent menuType={menuType} />
+        <div className="flex-1 p-8 bg-white">
+          <div className="flex flex-col items-center justify-center h-full">
+            <h1 className="text-2xl font-bold text-gray-800 mb-4">¡Parece que aún no hay requerimientos!</h1>
+            <p className="text-gray-600 mb-8">
+              Comencemos a construir juntos. ¿Qué te parece si creamos uno nuevo?
+            </p>
+            <Link
+              to={linkTo}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Crear nuevo requerimiento
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (error) {
     return <div>Error: {error.message}</div>
   }
-
-  const menuType = 'admin'
-  const linkTo = `crear`
 
   return (
     <div className="flex h-screen bg-gray-100">

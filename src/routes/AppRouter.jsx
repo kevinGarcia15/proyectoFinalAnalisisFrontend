@@ -12,7 +12,8 @@ import {
   CrearRequerimiento,
   ListarPrueba,
   CrearPrueba,
-  VerPrueba
+  VerPrueba,
+  CrearBug,
 } from '../pages/private'
 import { Login,Home, Uikit, Register, NotFound, RegisterCompany} from '../pages/public';
 
@@ -42,6 +43,8 @@ const AppRouter = () => {
       <Route path='/pruebas' element={<AuthRoute>< ListarPrueba/></AuthRoute>}/>
       <Route path='/pruebas/crear' element={<AuthRoute>< CrearPrueba/></AuthRoute>}/>
       <Route path='/pruebas/ver/:id' element={<AuthRoute>< VerPrueba/></AuthRoute>}/>
+
+      <Route path='/pruebas/:idPrueba/bugs/crear' element={<AuthRoute>< CrearBug/></AuthRoute>}/>
 
     </Routes>
     </>
