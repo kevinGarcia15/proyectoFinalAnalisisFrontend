@@ -103,6 +103,20 @@ class PruebaService {
         }
     }
 
+    async getBugs(id) {
+        try {
+            const response = await apiService.get({
+                url: `/bugs/?idprueba=${id}`,
+
+            });
+
+            return response.data;
+        } catch (error) {
+            console.error("Error al obtener la complejidad:", error);
+            throw error;
+        }
+    }
+
     async aceptarCriterio(id, data) {
         try {
             const response = await apiService.patch({
@@ -117,6 +131,19 @@ class PruebaService {
         }
     }
     
+    async cambiarEstadoBug(id, formData) {
+        try {
+            const response = await apiService.patch({
+                url: `/bugs/${id}/`,
+                data: formData,
+            });
+
+            return response;
+        } catch (error) {
+            console.error("Error al actualizar la empresa:", error);
+            throw error;
+        }
+    }
 
     async updatePrueba(id, formData) {
         try {

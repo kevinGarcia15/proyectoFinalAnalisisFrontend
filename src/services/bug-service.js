@@ -88,19 +88,6 @@ class BugService {
         }
     }
 
-    async updateBug(id, formData) {
-        try {
-            const response = await apiService.put({
-                url: `/bug/${id}/`,
-                data: formData,
-            });
-
-            return response;
-        } catch (error) {
-            console.error("Error al actualizar la empresa:", error);
-            throw error;
-        }
-    }
 
     async deleteBug(id) {
         try {

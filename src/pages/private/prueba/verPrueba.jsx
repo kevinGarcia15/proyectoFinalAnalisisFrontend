@@ -2,15 +2,25 @@ import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { pruebaService } from '../../../services/prueba-service' // Assuming pruebaService exists
 import SidebarComponent from '@/components/sidebarComponent';
+import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineSharp';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AutorenewSharpIcon from '@mui/icons-material/AutorenewSharp';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
 
 export const VerPrueba = () => {
   const [prueba, setPrueba] = useState(null)
+  const [bugs, setBugs] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [criterioAceptacion, setCriterioAceptacion] = useState([])
   
   const [formData, setFormData] = useState({
     aceptado: false,
+  })
+
+  const [formDataBug, setFormDataBug] = useState({
+    idEstadoBug: '',
   })
 
   const { id } = useParams() // Get prueba ID from URL
@@ -21,8 +31,11 @@ export const VerPrueba = () => {
       try {
         const fetchedPrueba = await pruebaService.getPruebaById(id)
         const fetchedCriterioAceptacion = await pruebaService.getCriterioAceptacion(id)
+        const fetchedBugs = await pruebaService.getBugs(id); // Obtén los bugs asociados
+
         setPrueba(fetchedPrueba)
         setCriterioAceptacion(fetchedCriterioAceptacion.results)
+        setBugs(fetchedBugs.results); // Asigna los bugs obtenidos al estado
       } catch (error) {
         console.error('Error obtaining prueba details:', error)
         setError(error)
@@ -52,6 +65,34 @@ export const VerPrueba = () => {
     }
   };
   
+  const handleBugState = async (idBug, idEstado) => {
+    
+    try {
+      formDataBug.idEstadoBug = idEstado
+      const respuesta = await pruebaService.cambiarEstadoBug(idBug, formDataBug); // Llama al servicio para cambiar el estado
+
+      if (respuesta.status === 200) {
+        setBugs(prevBug =>
+          prevBug.map(bug => 
+            bug.idBug === idBug 
+              ? { 
+                  ...bug, 
+                  estadoBug: { 
+                    ...bug.estadoBug, 
+                    estadoBug: respuesta.data.estadoBug.estadoBug 
+                  },
+                  fechaResolucion: respuesta.data.fechaResolucion  
+                }
+              : bug
+          )
+        );
+      }
+
+    } catch (error) {
+      setError('Error al cambiar el estado del bug');
+    }
+  };
+
   const handleBack = () => navigate('/pruebas') // Go back to pruebas list
 
   if (loading) {
@@ -109,6 +150,7 @@ export const VerPrueba = () => {
                 </div>
 
                 <div className="mt-6 overflow-x-auto">
+                <h3 className="text-lg font-semibold mb-4">Criterio aceptacion</h3>
                   <table className="min-w-full divide-y divide-gray-200">
                     <thead>
                       <tr>
@@ -151,7 +193,89 @@ export const VerPrueba = () => {
                       ))}
                     </tbody>
                   </table>
-                </div>                <button className="mt-6 px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded" onClick={handleBack}>
+                </div>                
+                <div className="mt-6 overflow-x-auto">
+                  <h3 className="text-lg font-semibold mb-4">Bugs</h3>
+                  <table className="min-w-full divide-y divide-gray-200">
+                    <thead>
+                      <tr>
+                        <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Descripción</th>
+                        <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
+                        <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Clasificacion</th>
+                        <th className="px-6 py-3 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha de Registro</th>
+                        <th className="px-6 py-3 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha de Resolucion</th>
+                        <th className="px-6 py-3 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                      {bugs?.map((bug) => (
+                        <tr key={bug.idBug}>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            {bug.bug}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-center">
+                            <span
+                              className={`px-3 py-1 rounded-full text-white text-sm font-semibold ${
+                                bug.estadoBug.estadoBug === 'Abierto' 
+                                  ? 'bg-gray-400'
+                                  : bug.estadoBug.estadoBug === 'En progreso'
+                                  ? 'bg-blue-500'
+                                  : bug.estadoBug.estadoBug === 'Cerrado'
+                                  ? 'bg-green-500'
+                                  : 'bg-gray-200'
+                              }`}
+                            >
+                            {bug.estadoBug.estadoBug}
+                            </span>
+                            
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-center">
+                            {bug.clasificacion.clasificacion}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-right">
+                            {new Date(bug.fechaRegistro).toLocaleDateString()}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-right">
+                            {bug.fechaResolucion? new Date(bug.fechaResolucion).toLocaleDateString(): '--'}
+                          </td>
+
+                          <td className="px-6 py-4 whitespace-nowrap text-right">
+                            <div className="flex items-center justify-center space-x-4">
+                              <Tooltip title="Finalizado">
+                                <IconButton 
+                                    onClick={() => handleBugState(bug.idBug, 3)}
+                                    >
+                                  <CheckCircleOutlineSharpIcon className="text-green-500"/>
+                                </IconButton>
+                              </Tooltip>
+
+                              <Tooltip title="En progreso">
+                                <IconButton 
+                                    onClick={() => handleBugState(bug.idBug, 2)}
+                                    >
+                                  <AutorenewSharpIcon className="text-blue-500"/>
+                                </IconButton>
+                              </Tooltip>
+
+                              <Tooltip title="Eliminar">
+                                <IconButton 
+                                  onClick={() => handleDelete(requerimiento.idRequerimiento)}
+                                >
+                                  <DeleteIcon className="text-red-500"/>
+                                </IconButton>
+                              </Tooltip>
+                            </div>
+
+
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+
+                <button className="mt-6 px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded" onClick={handleBack}>
                     Volver a la lista de pruebas
                 </button>
                 </div>
