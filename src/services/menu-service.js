@@ -1,3 +1,5 @@
+import { name } from "dayjs/locale/es"
+
 export const menuSuperAdmin = [
     {
         name: 'inicio',
@@ -26,6 +28,11 @@ export const menuAdmin = [
             {
                 name: 'Crear proyecto',
                 path: '/proyecto/crearproyectos',
+                icon: '',
+            },
+            {
+                name:'Graficas',
+                path: '/proyecto/graficas',
                 icon: '',
             }
 

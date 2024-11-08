@@ -116,6 +116,20 @@ class ProyectoService {
         }
     }
 
+    async getDatoGrafica() {
+        try {
+            const response = await apiService.get({
+                url: '/reportes/reportesbug/',
+
+            });
+            return response.data;
+        } catch (error) {
+            console.error("Error al obtener la complejidad:", error);
+            throw error;
+        }
+    }
+
+
     async updateProyecto(id, formData) {
         try {
             const response = await apiService.put({

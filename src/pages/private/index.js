@@ -11,3 +11,4 @@ export { ListarPrueba } from './prueba/listarPrueba';
 export { CrearPrueba } from './prueba/crearPrueba';
 export { VerPrueba } from './prueba/verPrueba';
 export { CrearBug } from './bug/crearBug';
+export { GraficaProyecto } from './proyecto/graficasProyecto';
