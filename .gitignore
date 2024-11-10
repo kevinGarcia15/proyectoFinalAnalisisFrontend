@@ -10,3 +10,5 @@ node_modules/
 # Archivos de construcción
 /build
 /dist
+.firebase
+.github
