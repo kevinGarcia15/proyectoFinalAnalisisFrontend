@@ -1,4 +1,4 @@
-# Front-Payroll-gt
+# Control de proyectos
 Repositorio del frontend de la aplicacion de gestion de nomina.
 
 ## Dependencias

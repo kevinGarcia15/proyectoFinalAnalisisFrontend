@@ -9,7 +9,7 @@ const config = {
     },
     production: {
         // production environment
-        API_URL: 'https://api-finalproject-payroll.onrender.com/api/v1',
+        API_URL: 'https://apiumgproyect.zapto.org/api/v1',
     },
 }
 

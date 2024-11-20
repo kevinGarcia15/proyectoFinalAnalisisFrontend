@@ -7,6 +7,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AutorenewSharpIcon from '@mui/icons-material/AutorenewSharp';
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
+import BackButton from '@/components/BackButton';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 export const VerPrueba = () => {
   const [prueba, setPrueba] = useState(null)
@@ -93,10 +95,12 @@ export const VerPrueba = () => {
     }
   };
 
-  const handleBack = () => navigate('/pruebas') // Go back to pruebas list
-
   if (loading) {
-    return <div>Loading...</div>
+    return(
+      <div className="h-screen flex items-center justify-center">
+      <LoadingSpinner size="8" color="green-500" message="Por favor espera..." />
+    </div>
+    )
   }
 
   if (error) {
@@ -111,7 +115,7 @@ export const VerPrueba = () => {
     <div className="flex h-screen bg-gray-100">
         <SidebarComponent menuType={menuType} />
         <div className="flex-1 p-8 bg-white overflow-y-auto">
-    
+          <BackButton label="Volver" />
             <div className="flex h-screen bg-gray-100">
             {/* Sidebar component can be reused here */}
             <div className="flex-1 p-8 bg-white overflow-y-auto">
@@ -273,11 +277,6 @@ export const VerPrueba = () => {
                     </tbody>
                   </table>
                 </div>
-
-
-                <button className="mt-6 px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded" onClick={handleBack}>
-                    Volver a la lista de pruebas
-                </button>
                 </div>
             </div>
             </div>

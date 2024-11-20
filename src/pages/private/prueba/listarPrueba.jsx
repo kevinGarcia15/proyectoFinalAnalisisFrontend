@@ -7,6 +7,8 @@ import IconButton from '@mui/material/IconButton';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import SidebarComponent from '@/components/sidebarComponent';
 import RemoveRedEyeSharpIcon from '@mui/icons-material/RemoveRedEyeSharp';
+import LoadingSpinner from '@/components/LoadingSpinner';
+
 
 export const ListarPrueba = () => {
   const [prueba, setPrueba] = useState([])
@@ -72,10 +74,12 @@ export const ListarPrueba = () => {
   if (loading) {
     return(
       <div className="flex h-screen bg-gray-100">
-      <SidebarComponent menuType={menuType} />
-      <div className="flex-1 p-8 bg-white overflow-y-auto">
-        <div>Sin resultados...</div>
-      </div>
+        <SidebarComponent menuType={menuType} />
+        <div className="flex-1 p-8 bg-white overflow-y-auto">
+          <div className="h-screen flex items-center justify-center">
+            <LoadingSpinner size="8" color="green-500" message="Por favor espera..." />
+          </div>
+        </div>
       </div>
     )
   }

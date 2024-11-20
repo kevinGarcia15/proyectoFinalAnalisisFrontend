@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { proyectoService } from '../../../services/proyecto-service'
 import { useNavigate } from 'react-router-dom'
 import SidebarComponent from '@/components/sidebarComponent';
+import BackButton from '@/components/BackButton';
 
 export const CrearProyecto = () => {
   const [formData, setFormData] = useState({
@@ -79,8 +80,9 @@ export const CrearProyecto = () => {
 
   return (
     <div className="flex h-screen bg-gray-100">
-    <SidebarComponent menuType={menuType} />
+      <SidebarComponent menuType={menuType} />
     <div className="flex-1 p-8 bg-white overflow-y-auto">
+      <BackButton label="Volver" />
 
         <div className="container mx-auto p-6">
         <h2 className="text-2xl font-semibold mb-6">Crear Nuevo Proyecto</h2>

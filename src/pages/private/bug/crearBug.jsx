@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { bugService } from '../../../services/bug-service'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import SidebarComponent from '@/components/sidebarComponent';
+import BackButton from '@/components/BackButton';
 
 export const CrearBug = () => {
   const { idPrueba } = useParams() // Obtener el ID del proyecto desde la URL
@@ -69,6 +70,7 @@ export const CrearBug = () => {
     <div className="flex h-screen bg-gray-100">
       <SidebarComponent menuType={menuType} />
       <div className="flex-1 p-8 bg-white overflow-y-auto">
+        <BackButton label="Volver" />
         <div className="container mx-auto p-6">
           <h2 className="text-2xl font-semibold mb-6">Registrar Nuevo Bug</h2>
           {error && <p className="text-red-500">{error}</p>}

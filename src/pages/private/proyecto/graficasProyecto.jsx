@@ -3,12 +3,7 @@ import { proyectoService } from '../../../services/proyecto-service'
 import { Link, useNavigate } from 'react-router-dom'
 import SidebarComponent from '@/components/sidebarComponent';
 import BugsChart from '@/components/chartComponent';
-
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import Tooltip from '@mui/material/Tooltip';
-import IconButton from '@mui/material/IconButton';
-import RemoveRedEyeSharpIcon from '@mui/icons-material/RemoveRedEyeSharp';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 export const GraficaProyecto = () => {
     const [reportData, setReportData] = useState([]);
@@ -39,7 +34,11 @@ export const GraficaProyecto = () => {
 
 
   if (loading) {
-    return <div>Cargando...</div>
+    return(
+      <div className="h-screen flex items-center justify-center">
+      <LoadingSpinner size="8" color="green-500" message="Por favor espera..." />
+    </div>
+    )
   }
 
   if (error) {

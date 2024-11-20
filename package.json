@@ -4,6 +4,7 @@
   "repository": "git@github.com:Internship-ciancoders-24-1/front-payroll-gt.git",
   "author": "Henry Gustavo X Az <azhenrygus@outlook.es>",
   "license": "MIT",
+  "proxy": "https://209.38.134.15:8000",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

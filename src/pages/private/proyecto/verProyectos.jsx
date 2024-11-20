@@ -3,10 +3,11 @@ import { proyectoService } from '../../../services/proyecto-service'
 import { Link, useNavigate } from 'react-router-dom'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import AddIcon from '@mui/icons-material/Add';
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import RemoveRedEyeSharpIcon from '@mui/icons-material/RemoveRedEyeSharp';
+import LoadingSpinner from '@/components/LoadingSpinner';
+
 
 export const VerProyectos = () => {
   const [proyectos, setProyectos] = useState([])
@@ -29,7 +30,6 @@ export const VerProyectos = () => {
           setLoading(false)
         }
       } catch (error) {
-        console.error('Error al obtener los proyectos:', error)
         setError(error)
         setLoading(false)
       }
@@ -69,7 +69,11 @@ export const VerProyectos = () => {
   const paginate = pageNumber => setCurrentPage(pageNumber)
 
   if (loading) {
-    return <div>Cargando...</div>
+    return(
+      <div className="h-screen flex items-center justify-center">
+      <LoadingSpinner size="8" color="green-500" message="Por favor espera..." />
+    </div>
+    )
   }
 
   if (error) {

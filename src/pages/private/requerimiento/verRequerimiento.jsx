@@ -7,6 +7,7 @@ import AutorenewSharpIcon from '@mui/icons-material/AutorenewSharp';
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import SidebarComponent from '@/components/sidebarComponent';
+import BackButton from '@/components/BackButton';
 
 export const VerRequerimientos = () => {
   const [formData, setFormData] = useState({
@@ -123,6 +124,7 @@ export const VerRequerimientos = () => {
     <div className="flex h-screen bg-gray-100">
       <SidebarComponent menuType={menuType} />
       <div className="flex-1 p-8 bg-white overflow-y-auto">
+        <BackButton label="Volver" />
         <div className="container mx-auto p-6">
           <h2 className="text-2xl font-semibold mb-6">{currentProjects[0].proyecto.nombreProyecto}</h2>
           <Link
