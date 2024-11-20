@@ -78,17 +78,6 @@ export const Login = () => {
             <p className="text-red-600 text-sm mb-4">{error}</p>
           )}
 
-          <div className="mb-4 flex items-center">
-            <Checkbox
-              id="terms"
-              className="mr-2"
-              aria-label="Aceptar términos y condiciones"
-            />
-            <Label htmlFor="terms" className="text-sm text-gray-600">
-              Acepto los <Link to="#" className="text-indigo-500 hover:underline">términos y condiciones</Link>
-            </Label>
-          </div>
-
           <button
             type="submit"
             className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-300"
@@ -96,13 +85,6 @@ export const Login = () => {
             Ingresar
           </button>
         </form>
-
-        <p className="text-center text-sm text-gray-500 mt-6">
-          ¿No tienes una cuenta?{' '}
-          <Link to="/register" className="text-indigo-500 hover:underline">
-            Regístrate aquí
-          </Link>
-        </p>
       </div>
     </div>
   )

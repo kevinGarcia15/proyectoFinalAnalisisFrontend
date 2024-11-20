@@ -10,7 +10,7 @@ const Usuario = () => {
   return (
     <>
       <span>
-        {userName} {rol}
+        {userName}
       </span>
     </>
   )
