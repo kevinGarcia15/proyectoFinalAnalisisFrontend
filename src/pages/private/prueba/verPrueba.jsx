@@ -205,6 +205,7 @@ export const VerPrueba = () => {
                       <tr>
                         <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Descripción</th>
                         <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
+                        <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">usuario responsable</th>
                         <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Clasificacion</th>
                         <th className="px-6 py-3 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha de Registro</th>
                         <th className="px-6 py-3 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha de Resolucion</th>
@@ -232,6 +233,9 @@ export const VerPrueba = () => {
                             {bug.estadoBug.estadoBug}
                             </span>
                             
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-center">
+                            {bug.usuarioEncargado.username}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-center">
                             {bug.clasificacion.clasificacion}
